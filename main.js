@@ -19,42 +19,8 @@ fetchSummary();
 
 
 
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-});
+var myChart = new Chart(ctx, null
+);
 
 
 
@@ -234,8 +200,7 @@ function returnBarGraph(TOPzarazeni,TOPpreminuli){
         label: null,
         data: null,
         borderWidth: 1,
-        backgroundColor:'rgba(60, 179, 113,0.8)',
-        borderColor: 'rgba(60, 179, 113,0.9)',
+        backgroundColor:['pink','yellow','green','purple','orange','grey','blue','yellow','pink','green'],
     }]
 
 
@@ -337,7 +302,7 @@ function returnLineGraph(deaths, confirmed, days){
     }
 }
 else{
-    for(let i = countryData.length-2;i>= (countryData.length - days)+1;i--){
+    for(let i = countryData.length-2;i>=0;i--){
         labels.push(countryData[i].Date.substring(0,10))
     }    
 }
@@ -346,7 +311,8 @@ else{
     //OPCIJA 1
     if(confirmed == true && deaths == false ){
         for(let i = countryData.length-2;i>= (countryData.length - days)+1;i--){
-            dataConfirmed.push(countryData[i].Confirmed-countryData[i-1].Confirmed)
+            dataConfirmed.push(negativityCheck(countryData[i].Confirmed,countryData[i-1].Confirmed))
+            console.log(countryData[i].Confirmed + '-' + countryData[i-1].Confirmed)
         }
 
         dataset[0].label = 'Broj potvrdjenih slucajeva';
@@ -357,7 +323,7 @@ else{
     //OPCIJA 2
     if(confirmed == false && deaths == true ){
         for(let i = countryData.length-2;i>= (countryData.length - days)+1;i--){
-            dataDeaths.push(countryData[i].Deaths-countryData[i-1].Deaths)
+            dataDeaths.push(negativityCheck(countryData[i].Deaths,countryData[i-1].Deaths))
         }
 
         dataset[0].label = 'Broj smrtnih slucajeva'
@@ -370,7 +336,7 @@ else{
 if(confirmed == true && deaths == true ){
     for(let i = countryData.length-2;i>= (countryData.length - days)+1;i--){
         dataDeaths.push(countryData[i].Deaths-countryData[i-1].Deaths)
-        dataConfirmed.push(countryData[i].Confirmed-countryData[i-1].Confirmed)
+        dataConfirmed.push(negativityCheck(countryData[i].Confirmed,countryData[i-1].Confirmed))
     }
 
     dataset = [{
@@ -414,11 +380,10 @@ function returnGraph(types, datasets, labelss){
         },
         options: {
             responsive: true,
-          //  maintainAspectRatio: false,
             scales: {
                 y:{
-                    fontColor: "green",
                     beginAtZero:true,
+                    suggestedMin: 0,
                 }
                  
             }
@@ -431,7 +396,14 @@ function returnGraph(types, datasets, labelss){
 
 
 
-
+function negativityCheck(num1, num2){
+    if(num1-num2 <0){
+    return
+    }
+    else{
+        return num1-num2;
+    }
+}
 
 
 // COUNTER
