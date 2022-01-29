@@ -11,6 +11,8 @@ var requestOptions = {
     method: 'GET',
 }
 
+alert('hello')
+
 
 //document.write("ucitavam...")
 //let myRequest = new Request('/kaka',requestOptions);
