@@ -11,10 +11,6 @@ var requestOptions = {
     method: 'GET',
 }
 
-
-//document.write("ucitavam...")
-//let myRequest = new Request('/kaka',requestOptions);
-
 fetchSummary();
 
 
@@ -200,7 +196,11 @@ function returnBarGraph(TOPzarazeni,TOPpreminuli){
         label: null,
         data: null,
         borderWidth: 1,
-        backgroundColor:['pink','yellow','green','purple','orange','grey','blue','yellow','pink','green'],
+        backgroundColor:['rgba(71, 218, 176, 0.8)','rgba(86, 192, 222, 0.8)',
+        'rgba(238, 28, 79, 0.8)','rgba(3, 242, 174, 0.8)','rgba(3, 225, 242, 0.8)',
+        'rgba(90, 76, 232, 0.8)',
+        'rgba(3, 203, 214, 0.8)','rgba(101, 242, 117, 0.8)',
+        'rgba(35, 231, 14, 0.8)','rgba(142, 14, 231, 0.8)'],
     }]
 
 
@@ -379,6 +379,14 @@ function returnGraph(types, datasets, labelss){
             datasets: datasets
         },
         options: {
+            plugins:{
+                legend:{
+                    labels:{
+                        boxWidth:0,
+                    }
+                }
+
+            },
             responsive: true,
             scales: {
                 y:{
@@ -407,7 +415,6 @@ function negativityCheck(num1, num2){
 
 
 // COUNTER
-
 function count(){
   $('.counter-count').each(function () {
         $(this).prop('Counter',0).animate({
